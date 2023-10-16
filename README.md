@@ -6,19 +6,19 @@ This Emulator Implements The Instructions Provided By [Peter Higginson's LMC](ht
 
 ## Instructions Table
 
-| Name            | Instruction | Instruction Code | Definition                                                                            |
-| --------------- | ----------- | ---------------- | ------------------------------------------------------------------------------------- |
-| Add             | `ADD XY`    | 1XY              | Adds Value Of Memory Address XY To The Accumulator                                    |
-| Subtract        | `SUB XY`    | 2XY              | Subtracts The Value Of Memory Address XY From The Accumulator                         |
-| Store           | `STA XY`    | 3XY              | Stores The Accumulator's Value In Memory Address XY                                   |
-| Load            | `LDA XY`    | 5XY              | Loads The Memory Address Of XY Into The Accumulator                                   |
-| Branch          | `BRA XY`    | 6XY              | Branches To Memory Address XY Unconditionally                                         |
-| Branch Zero     | `BRZ XY`    | 7XY              | Branches To Memory Address XY If Accumulator Is Zero                                  |
-| Branch Positive | `BRP XY`    | 8XY              | Branches To Memory Address XY If Accumulator Is Positive                              |
-| Input           | `INP`       | 901              | Takes User Input And Stores It In Accumulator                                         |
-| Output          | `OUT`       | 902              | Writes Value Of Accumulator To Shell                                                  |
-| Halt            | `HLT`       | 0                | Halts Execution Of The Program                                                        |
-| Data            | `DAT`       | -                | Defines A Data Location Or Initializes Memory (Can Include An Optional Initial Value) |
+| Name            | Instruction | Code | Description                                                                           |
+| --------------- | ----------- | ---- | ------------------------------------------------------------------------------------- |
+| Add             | `ADD XY`    | 1XY  | Adds Value Of Memory Address XY To The Accumulator                                    |
+| Subtract        | `SUB XY`    | 2XY  | Subtracts The Value Of Memory Address XY From The Accumulator                         |
+| Store           | `STA XY`    | 3XY  | Stores The Accumulator's Value In Memory Address XY                                   |
+| Load            | `LDA XY`    | 5XY  | Loads The Memory Address Of XY Into The Accumulator                                   |
+| Branch          | `BRA XY`    | 6XY  | Branches To Memory Address XY Unconditionally                                         |
+| Branch Zero     | `BRZ XY`    | 7XY  | Branches To Memory Address XY If Accumulator Is Zero                                  |
+| Branch Positive | `BRP XY`    | 8XY  | Branches To Memory Address XY If Accumulator Is Positive                              |
+| Input           | `INP`       | 901  | Takes User Input And Stores It In Accumulator                                         |
+| Output          | `OUT`       | 902  | Writes Value Of Accumulator To Shell                                                  |
+| Halt            | `HLT`       | 0    | Halts Execution Of The Program                                                        |
+| Data            | `DAT`       | -    | Defines A Data Location Or Initializes Memory (Can Include An Optional Initial Value) |
 
 ## Usage
 
