@@ -97,14 +97,12 @@ pub fn generate_tokenized_instructions(source_path: &Path) -> Result<Vec<i64>> {
                     line_number,
                 ),
             ),
-            "LDA" => {
-                tokenized_instructions.push(
-                    500 + resolve_or_parse(
-                        instructions_vector.get(idx + 1).unwrap_or(&"0"),
-                        line_number,
-                    ),
-                );
-            }
+            "LDA" => tokenized_instructions.push(
+                500 + resolve_or_parse(
+                    instructions_vector.get(idx + 1).unwrap_or(&"0"),
+                    line_number,
+                ),
+            ),
             "BRA" => tokenized_instructions.push(
                 600 + resolve_or_parse(
                     instructions_vector.get(idx + 1).unwrap_or(&"0"),
