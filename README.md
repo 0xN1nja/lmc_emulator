@@ -127,3 +127,43 @@ HLT
 FIRST DAT
 SECOND DAT
 ```
+
+### Triangular Numbers
+
+Input A Number And Then Output The First n Triangular Numbers
+
+```
+INP
+STA INPUT
+LOOP LDA NUMBER
+ADD COUNTER
+OUT
+STA NUMBER
+LDA COUNTER
+ADD ONE
+STA COUNTER
+LDA INPUT
+SUB COUNTER
+BRP LOOP
+HLT
+COUNTER DAT 1
+NUMBER DAT 0
+ONE DAT 1
+INPUT DAT
+```
+
+### Count Down
+
+Input A Number And Count Down From n To Zero
+
+```
+INP
+LOOP OUT
+STA COUNT
+SUB ONE
+STA COUNT
+BRP LOOP
+HLT
+ONE DAT 1
+COUNT DAT
+```
