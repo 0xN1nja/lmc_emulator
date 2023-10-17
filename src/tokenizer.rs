@@ -11,13 +11,13 @@ const INSTRUCTIONS: [&str; 11] = [
 
 pub fn generate_tokenized_instructions(source_path: &Path) -> Result<Vec<i64>> {
     let source_file = File::open(source_path)?;
+
     let buffer = BufReader::new(source_file);
     let mut preliminary_buffer = BufReader::new(File::open(source_path)?);
 
     let mut tokenized_instructions: Vec<i64> = Vec::new();
-    let mut line_number = 0;
-
     let mut labels: HashMap<String, usize> = HashMap::new();
+
     let is_label = |s: &str| !INSTRUCTIONS.contains(&s);
 
     let mut memory_location = 0;
@@ -44,13 +44,15 @@ pub fn generate_tokenized_instructions(source_path: &Path) -> Result<Vec<i64>> {
         memory_location += 1;
     }
 
-    let resolve_or_parse = move |s: &str| -> i64 {
+    let resolve_or_parse = move |s: &str, line_number: i32| -> i64 {
         labels.get(s).copied().map(|n| n as i64).unwrap_or_else(|| {
             s.parse().expect(
                 format!("Error On Line {}: Label {} Is Not Defined", line_number, s).as_str(),
             )
         })
     };
+
+    let mut line_number = 1;
 
     for line in buffer.lines() {
         let mut line = line?;
@@ -64,6 +66,7 @@ pub fn generate_tokenized_instructions(source_path: &Path) -> Result<Vec<i64>> {
         }
 
         let instructions_vector: Vec<&str> = line.trim().split_whitespace().collect();
+
         let mut idx = 0;
 
         if is_label(instructions_vector[0]) {
@@ -76,22 +79,50 @@ pub fn generate_tokenized_instructions(source_path: &Path) -> Result<Vec<i64>> {
             .to_uppercase()
             .as_str()
         {
-            "ADD" => tokenized_instructions
-                .push(100 + resolve_or_parse(instructions_vector.get(idx + 1).unwrap_or(&"0"))),
-            "SUB" => tokenized_instructions
-                .push(200 + resolve_or_parse(instructions_vector.get(idx + 1).unwrap_or(&"0"))),
-            "STA" => tokenized_instructions
-                .push(300 + resolve_or_parse(instructions_vector.get(idx + 1).unwrap_or(&"0"))),
+            "ADD" => tokenized_instructions.push(
+                100 + resolve_or_parse(
+                    instructions_vector.get(idx + 1).unwrap_or(&"0"),
+                    line_number,
+                ),
+            ),
+            "SUB" => tokenized_instructions.push(
+                200 + resolve_or_parse(
+                    instructions_vector.get(idx + 1).unwrap_or(&"0"),
+                    line_number,
+                ),
+            ),
+            "STA" => tokenized_instructions.push(
+                300 + resolve_or_parse(
+                    instructions_vector.get(idx + 1).unwrap_or(&"0"),
+                    line_number,
+                ),
+            ),
             "LDA" => {
-                tokenized_instructions
-                    .push(500 + resolve_or_parse(instructions_vector.get(idx + 1).unwrap_or(&"0")));
+                tokenized_instructions.push(
+                    500 + resolve_or_parse(
+                        instructions_vector.get(idx + 1).unwrap_or(&"0"),
+                        line_number,
+                    ),
+                );
             }
-            "BRA" => tokenized_instructions
-                .push(600 + resolve_or_parse(instructions_vector.get(idx + 1).unwrap_or(&"0"))),
-            "BRZ" => tokenized_instructions
-                .push(700 + resolve_or_parse(instructions_vector.get(idx + 1).unwrap_or(&"0"))),
-            "BRP" => tokenized_instructions
-                .push(800 + resolve_or_parse(instructions_vector.get(idx + 1).unwrap_or(&"0"))),
+            "BRA" => tokenized_instructions.push(
+                600 + resolve_or_parse(
+                    instructions_vector.get(idx + 1).unwrap_or(&"0"),
+                    line_number,
+                ),
+            ),
+            "BRZ" => tokenized_instructions.push(
+                700 + resolve_or_parse(
+                    instructions_vector.get(idx + 1).unwrap_or(&"0"),
+                    line_number,
+                ),
+            ),
+            "BRP" => tokenized_instructions.push(
+                800 + resolve_or_parse(
+                    instructions_vector.get(idx + 1).unwrap_or(&"0"),
+                    line_number,
+                ),
+            ),
             "INP" => tokenized_instructions.push(901),
             "OUT" => tokenized_instructions.push(902),
             "HLT" => tokenized_instructions.push(000),
@@ -104,8 +135,9 @@ pub fn generate_tokenized_instructions(source_path: &Path) -> Result<Vec<i64>> {
                             .parse::<i64>()
                             .expect(
                                 format!(
-                                    "Error on line {}: Invalid Argument For DAT Instruction",
-                                    line_number
+                                    "Error on line {}: Invalid Argument For DAT Instruction: {}",
+                                    line_number,
+                                    line.split_whitespace().nth(idx + 1).unwrap()
                                 )
                                 .as_str(),
                             ),
