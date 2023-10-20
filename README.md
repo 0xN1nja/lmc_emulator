@@ -44,8 +44,6 @@ $ ./target/debug/lmc_emulator --run <filename>
 
 ### Add Two Numbers
 
-Input Two Numbers And Output Their Sum
-
 ```
 INP
 STA 99
@@ -56,8 +54,6 @@ HLT
 ```
 
 ### Add Three Numbers
-
-Input Three Numbers And Output Their Sum
 
 ```
 INP
@@ -73,8 +69,6 @@ HLT
 
 ### Add/Subtract
 
-Input Three Numbers, Output The Sum Of First Two Numbers And Then Output The Difference Of Third And First Number
-
 ```
 INP
 STA FIRST
@@ -88,9 +82,32 @@ HLT
 FIRST DAT
 ```
 
-### Infinite Loop
+### Multiply Two Numbers
 
-Input A Number And Continuously Output It
+```
+INP
+STA NUM1
+INP
+STA NUM2
+LOOP LDA TOTAL
+ADD NUM1
+STA TOTAL
+LDA NUM2
+SUB ONE
+STA NUM2
+BRP LOOP
+LDA TOTAL
+SUB NUM1
+STA TOTAL
+OUT
+HLT
+NUM1 DAT
+NUM2 DAT
+ONE DAT 1
+TOTAL DAT 0
+```
+
+### Infinite Loop
 
 ```
 INPUT INP
@@ -100,8 +117,6 @@ BRA INPUT
 
 ### Pre-Defining Data
 
-Load A Variable And Store It At Another Memory Address
-
 ```
 LDA VARIABLE
 STA 99
@@ -109,8 +124,6 @@ VARIABLE DAT 1
 ```
 
 ### Find Greater Number
-
-Input Two Numbers And Output The Greater One
 
 ```
 INP
@@ -129,8 +142,6 @@ SECOND DAT
 ```
 
 ### Triangular Numbers
-
-Input A Number And Then Output The First n Triangular Numbers
 
 ```
 INP
@@ -154,8 +165,6 @@ INPUT DAT
 
 ### Count Down
 
-Input A Number And Count Down From n To Zero
-
 ```
 INP
 LOOP OUT
@@ -166,4 +175,32 @@ BRP LOOP
 HLT
 ONE DAT 1
 COUNT DAT
+```
+
+### Fibonacci Series
+
+```
+INP
+STA N
+START LDA N
+BRZ FINISH
+LDA A
+OUT
+LDA B
+ADD A
+STA 99
+LDA B
+STA A
+LDA 99
+STA B
+LDA N
+SUB Y
+STA N
+BRA START
+FINISH LDA N
+HLT
+N DAT
+A DAT 0
+B DAT 1
+Y DAT 1
 ```
