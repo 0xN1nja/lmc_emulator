@@ -49,22 +49,19 @@ pub fn execute(memory: &mut Memory, tokenized_instructions: Vec<i64>) {
             }
             InstructionType::BRA => {
                 program_counter = instruction.address.unwrap() as usize;
-
                 should_increment = false;
             }
             InstructionType::BRZ => {
                 if accumulator == 0 {
                     program_counter = instruction.address.unwrap() as usize;
+                    should_increment = false;
                 }
-
-                should_increment = false;
             }
             InstructionType::BRP => {
                 if accumulator >= 0 {
                     program_counter = instruction.address.unwrap() as usize;
+                    should_increment = false;
                 }
-
-                should_increment = false;
             }
             InstructionType::INP => {
                 print!("Input: ");
