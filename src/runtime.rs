@@ -1,6 +1,4 @@
-#![allow(unused)]
-
-use crate::instructions::{self, *};
+use crate::instructions::*;
 use crate::memory::Memory;
 
 use std::io::{self, *};
@@ -17,7 +15,7 @@ pub fn execute(memory: &mut Memory, tokenized_instructions: Vec<i64>) {
         match instruction.kind {
             InstructionType::ADD => {
                 println!(
-                    "Adding The Content Of Memory Address {:?} To Accumulator",
+                    "Adding the content of memory address {:?} to the accumulator",
                     instruction.address.unwrap()
                 );
 
@@ -25,7 +23,7 @@ pub fn execute(memory: &mut Memory, tokenized_instructions: Vec<i64>) {
             }
             InstructionType::SUB => {
                 println!(
-                    "Subtracting The Content Of Memory Address {:?} From Accumulator",
+                    "Subtracting the content of memory address {:?} from the accumulator",
                     instruction.address.unwrap()
                 );
 
@@ -33,7 +31,7 @@ pub fn execute(memory: &mut Memory, tokenized_instructions: Vec<i64>) {
             }
             InstructionType::STA => {
                 println!(
-                    "Storing Value Of Accumulator At Memory Address {:?}",
+                    "Storing the content of the accumulator at memory address {:?}",
                     instruction.address.unwrap()
                 );
 
@@ -41,7 +39,7 @@ pub fn execute(memory: &mut Memory, tokenized_instructions: Vec<i64>) {
             }
             InstructionType::LDA => {
                 println!(
-                    "Loading The Contents Of Memory Address {:?} Into Accumulator",
+                    "Loading the content of memory address {:?} into the accumulator",
                     instruction.address.unwrap()
                 );
 
@@ -88,8 +86,8 @@ pub fn execute(memory: &mut Memory, tokenized_instructions: Vec<i64>) {
         }
     }
 
-    println!("Program Halted");
-    println!("Memory Table:");
+    println!("Program halted");
+    println!("Memory table:");
 
     Memory::print_memory_table(&memory);
 }

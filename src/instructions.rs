@@ -1,5 +1,3 @@
-#![allow(unused)]
-
 #[derive(Debug)]
 pub struct Instruction {
     pub kind: InstructionType,
@@ -42,11 +40,11 @@ impl Instruction {
                 {
                     1 => InstructionType::INP,
                     2 => InstructionType::OUT,
-                    _ => return Err("Unknown Instruction"),
+                    _ => return Err("Unknown instruction"),
                 }
             }
             0 => InstructionType::DAT,
-            _ => return Err("Unknown Instruction"),
+            _ => return Err("Unknown instruction"),
         };
 
         Ok(Instruction {

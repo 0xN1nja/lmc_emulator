@@ -1,8 +1,6 @@
-#![allow(unused)]
-
 use std::collections::HashMap;
-use std::fs::{self, *};
-use std::io::{self, *};
+use std::fs::File;
+use std::io::*;
 use std::path::Path;
 
 const INSTRUCTIONS: [&str; 11] = [
@@ -13,7 +11,7 @@ pub fn generate_tokenized_instructions(source_path: &Path) -> Result<Vec<i64>> {
     let source_file = File::open(source_path)?;
 
     let buffer = BufReader::new(source_file);
-    let mut preliminary_buffer = BufReader::new(File::open(source_path)?);
+    let preliminary_buffer = BufReader::new(File::open(source_path)?);
 
     let mut tokenized_instructions: Vec<i64> = Vec::new();
     let mut labels: HashMap<String, usize> = HashMap::new();
@@ -47,7 +45,11 @@ pub fn generate_tokenized_instructions(source_path: &Path) -> Result<Vec<i64>> {
     let resolve_or_parse = move |s: &str, line_number: i32| -> i64 {
         labels.get(s).copied().map(|n| n as i64).unwrap_or_else(|| {
             s.parse().expect(
-                format!("Error On Line {}: Label {} Is Not Defined", line_number, s).as_str(),
+                format!(
+                    "Error at line {}: Label '{}' is not defined",
+                    line_number, s
+                )
+                .as_str(),
             )
         })
     };
@@ -75,7 +77,13 @@ pub fn generate_tokenized_instructions(source_path: &Path) -> Result<Vec<i64>> {
 
         match instructions_vector
             .get(idx)
-            .expect(format!("Unknown Instruction: {}", line).as_str())
+            .expect(
+                format!(
+                    "Error at line {}: Unknown instruction '{}'",
+                    line_number, line
+                )
+                .as_str(),
+            )
             .to_uppercase()
             .as_str()
         {
@@ -133,7 +141,7 @@ pub fn generate_tokenized_instructions(source_path: &Path) -> Result<Vec<i64>> {
                             .parse::<i64>()
                             .expect(
                                 format!(
-                                    "Error on line {}: Invalid Argument For DAT Instruction: {}",
+                                    "Error at line {}: Invalid argument '{}' for DAT instruction",
                                     line_number,
                                     line.split_whitespace().nth(idx + 1).unwrap()
                                 )
@@ -145,7 +153,10 @@ pub fn generate_tokenized_instructions(source_path: &Path) -> Result<Vec<i64>> {
                 }
             }
             _ => {
-                panic!("Unknown Instruction: {}", line);
+                panic!(
+                    "Error at line {}: Unknown instruction '{}'",
+                    line_number, line
+                );
             }
         }
 

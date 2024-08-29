@@ -1,48 +1,48 @@
 # LMC Emulator
 
-LMC Emulator Written In Rust
+LMC Emulator written in Rust
 
-This Emulator Implements The Instructions Provided By [Peter Higginson's LMC](https://peterhigginson.co.uk/LMC) And York University's [LMC Instruction Set](https://www.yorku.ca/sychen/research/LMC/LMCInstructionSummary.html).
+This emulator implements the instructions provided by [Peter Higginson's LMC](https://peterhigginson.co.uk/LMC) and York University's [LMC Instruction Set](https://www.yorku.ca/sychen/research/LMC/LMCInstructionSummary.html).
 
-## Instructions Table
+## Instructions set
 
 | Name            | Instruction | Code | Description                                                                           |
 | --------------- | ----------- | ---- | ------------------------------------------------------------------------------------- |
-| Add             | `ADD XY`    | 1XY  | Adds Value Of Memory Address XY To The Accumulator                                    |
-| Subtract        | `SUB XY`    | 2XY  | Subtracts The Value Of Memory Address XY From The Accumulator                         |
-| Store           | `STA XY`    | 3XY  | Stores The Accumulator's Value In Memory Address XY                                   |
-| Load            | `LDA XY`    | 5XY  | Loads The Memory Address Of XY Into The Accumulator                                   |
-| Branch          | `BRA XY`    | 6XY  | Branches To Memory Address XY Unconditionally                                         |
-| Branch Zero     | `BRZ XY`    | 7XY  | Branches To Memory Address XY If Accumulator Is Zero                                  |
-| Branch Positive | `BRP XY`    | 8XY  | Branches To Memory Address XY If Accumulator Is Positive                              |
-| Input           | `INP`       | 901  | Takes User Input And Stores It In Accumulator                                         |
-| Output          | `OUT`       | 902  | Writes Value Of Accumulator To Shell                                                  |
-| Halt            | `HLT`       | 0    | Halts Execution Of The Program                                                        |
-| Data            | `DAT`       | -    | Defines A Data Location Or Initializes Memory (Can Include An Optional Initial Value) |
+| Add             | `ADD XY`    | 1XY  | Adds the content of memory address XY to the accumulator                              |
+| Subtract        | `SUB XY`    | 2XY  | Subtracts the content of memory address XY from the accumulator                       |
+| Store           | `STA XY`    | 3XY  | Stores the accumulator's content in memory address XY                                 |
+| Load            | `LDA XY`    | 5XY  | Loads the content of memory address of XY into the accumulator                        |
+| Branch          | `BRA XY`    | 6XY  | Branches to memory address XY unconditionally                                         |
+| Branch Zero     | `BRZ XY`    | 7XY  | Branches to memory address XY if accumulator is zero                                  |
+| Branch Positive | `BRP XY`    | 8XY  | Branches to memory address XY if accumulator is positive                              |
+| Input           | `INP`       | 901  | Takes user input and stores it in the accumulator                                     |
+| Output          | `OUT`       | 902  | Writes the content of the accumulator to shell                                        |
+| Halt            | `HLT`       | 0    | Halts the execution of the program                                                    |
+| Data            | `DAT`       | -    | Defines a data location or initializes memory (can include an optional initial value) |
 
 ## Usage
 
 Initialize
 
 ```bash
-$ cargo build
+cargo build
 ```
 
-Compile A Source File
+Compile a source file
 
 ```bash
-$ ./target/debug/lmc_emulator --build <filename>
+./target/debug/lmc_emulator --build <filename>
 ```
 
-Run The Generated Binary
+Run the generated binary
 
 ```bash
-$ ./target/debug/lmc_emulator --run <filename>
+./target/debug/lmc_emulator --run <filename>
 ```
 
 ## Examples
 
-### Add Two Numbers
+### Add two numbers
 
 ```
 INP
@@ -53,7 +53,7 @@ OUT
 HLT
 ```
 
-### Add Three Numbers
+### Add three numbers
 
 ```
 INP
@@ -67,7 +67,7 @@ OUT
 HLT
 ```
 
-### Add/Subtract
+### Add/subtract
 
 ```
 INP
@@ -82,7 +82,7 @@ HLT
 FIRST DAT
 ```
 
-### Multiply Two Numbers
+### Multiply two numbers
 
 ```
 INP
@@ -107,7 +107,7 @@ ONE DAT 1
 TOTAL DAT 0
 ```
 
-### Infinite Loop
+### Infinite loop
 
 ```
 INPUT INP
@@ -115,7 +115,7 @@ OUT
 BRA INPUT
 ```
 
-### Pre-Defining Data
+### Pre-defining data
 
 ```
 LDA VARIABLE
@@ -123,7 +123,7 @@ STA 99
 VARIABLE DAT 1
 ```
 
-### Find Greater Number
+### Find greater number
 
 ```
 INP
@@ -141,7 +141,7 @@ FIRST DAT
 SECOND DAT
 ```
 
-### Triangular Numbers
+### Triangular numbers
 
 ```
 INP
@@ -163,7 +163,7 @@ ONE DAT 1
 INPUT DAT
 ```
 
-### Count Down
+### Count down
 
 ```
 INP
@@ -177,7 +177,7 @@ ONE DAT 1
 COUNT DAT
 ```
 
-### Fibonacci Series
+### Fibonacci series
 
 ```
 INP
