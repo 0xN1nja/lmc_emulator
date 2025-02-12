@@ -24,7 +24,7 @@ fn main() {
 
             tokenizer::generate_binary(tokenized_instructions, Path::new(binary_path)).unwrap();
         } else {
-            println!("\"--build\" flag requires a source file. Please provide one");
+            println!("\"--build\" flag requires a source file. Please provide one.");
             return;
         }
     } else if args.contains(&String::from("--run")) {
@@ -44,7 +44,7 @@ fn main() {
 
             runtime::execute(&mut memory, tokenized_instructions);
         } else {
-            println!("\"--run\" flag requires a binary file. Please provide one");
+            println!("\"--run\" flag requires a binary file. Please provide one.");
             return;
         }
     } else {
