@@ -1,6 +1,4 @@
-#![allow(unused)]
-
-use comfy_table::{self, *};
+use tabled::{builder::Builder, settings::Style};
 
 #[derive(Debug)]
 pub struct Memory {
@@ -14,21 +12,16 @@ impl Memory {
         }
     }
     pub fn print_memory_table(memory: &Memory) {
-        let mut table = Table::new();
-
-        table
-            .load_preset(comfy_table::presets::UTF8_FULL)
-            .apply_modifier(comfy_table::modifiers::UTF8_ROUND_CORNERS)
-            .set_content_arrangement(ContentArrangement::Dynamic);
+        let mut table_builder = Builder::default();
 
         for chunk in memory.items.chunks(10) {
-            let row_content: Vec<Cell> = chunk
-                .iter()
-                .map(|&item| Cell::new(format!("{:03}", item)))
-                .collect();
-
-            table.add_row(row_content);
+            let row_content: Vec<String> =
+                chunk.iter().map(|&item| format!("{:03}", item)).collect();
+            table_builder.push_record(row_content);
         }
+
+        let mut table = table_builder.build();
+        table.with(Style::modern());
 
         println!("{}", table);
     }
